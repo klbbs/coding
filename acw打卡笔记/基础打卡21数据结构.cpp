@@ -8,7 +8,7 @@ int n[N], ne[N], idx = 1;
 
 void add_k(int x, int k)
 {
-    n[idx] = x, ne[idx] = ne[k], ne[k] = idx++;
+    n[idx] = x, ne[idx] = ne[k], ne[k] = idx++;//在k后面添加一个节点
 }
 
 void rm(int k)
