@@ -41,3 +41,5 @@ int query(char str[])
 ````
 
 #### 另外前辈的笔记---->[AcWing 835. Trie树图文详解 - AcWing](https://www.acwing.com/file_system/file/content/whole/index/content/1553895/)
+
+## 因实践trie更加理解其静态结构 [trie模板题静态](../acw打卡笔记/基础算法29trie字典树.md)
