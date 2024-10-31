@@ -16,19 +16,18 @@ int find(int x)
     }
     return r;
 }
-/* 孩子们，一定不要用cin和cout，我这道题改了半天都没过，
-    改成scanf和printf快了10倍，我估计二分都用不上 */
+
 int main()
 {
     int n, m;scanf("%d%d",&n,&m);
     for(int i = 1; i <= n; i ++)scanf("%d",&s[i]);
     for(int i = 1; i <= n; i ++)
     {
-        if(i - m > q[hh]) hh ++;
-        if(hh <= tt && s[q[tt]] >= s[i]) tt = find(s[i]) - 1;
-        if( i >= 1 && q[hh])printf("%d\n",s[q[hh]]);
-        else printf("0\n");
+        if(i - m >= q[hh]) hh ++;
+        while(hh <= tt && s[q[tt]] <= s[i])tt--;
         q[++tt] = i;
+        if( i >= m && q[hh])printf("%d\n",s[q[hh]]);
+        
     }
-    return 0;    
+    return 0;
 }
