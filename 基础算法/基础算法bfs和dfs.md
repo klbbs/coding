@@ -256,3 +256,166 @@ int main()
 
 2. #### bfs结束的情况是队列中没有任何元素了
 
+#### 来看看八数码题的bfs
+
+
+```
+
+ 在一个 3×3 的网格中，1∼8 这 8 个数字和一个 `x` 恰好不重不漏地分布在这 3×3 的网格中。
+ 例如：
+
+1 2 3
+x 4 6
+7 5 8
+
+
+在游戏过程中，可以把 `x` 与其上、下、左、右四个方向之一的数字交换（如果存在）。
+我们的目的是通过交换，使得网格变为如下排列（称为正确排列）：
+
+
+1 2 3
+4 5 6
+7 8 x
+
+
+例如，示例中图形就可以通过让 `x` 先后与右、下、右三个方向的数字交换成功得到正确排列。
+交换过程如下：
+
+
+1 2 3   1 2 3   1 2 3   1 2 3
+x 4 6   4 x 6   4 5 6   4 5 6
+7 5 8   7 5 8   7 x 8   7 8 x
+
+
+现在，给你一个初始网格，请你求出得到正确排列至少需要进行多少次交换。
+
+```
+
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+string s = "";
+const int N = 362880;
+unordered_map<string,int> q;
+string f[N];
+int hh,tt = -1;
+int bfs()
+{
+    q[s] = 0;
+    f[++ tt] = s;
+    while(hh <= tt)
+    {
+        string t = f[hh ++];
+        if (t == "12345678x")return q[t];
+        int k = t.find('x');
+        if(k + 3 <= 8)
+        {
+            f[++ tt] = t;
+            f[tt][k] = f[tt][k + 3];
+            f[tt][k + 3] = 'x';
+            if(!q.count(f[tt]))
+                q[f[tt]] = q[t] + 1;
+            else tt --;
+        }
+        if(k + 1 <= 8 && k != 2 && k != 5)
+        {
+            f[++ tt] = t;
+            f[tt][k] = f[tt][k + 1];
+            f[tt][k + 1] = 'x';
+            if(!q.count(f[tt]))
+            q[f[tt]] = q[t] + 1;
+            else tt --;
+        }
+        if(k - 1 >= 0 && k != 3 && k != 6)
+        {
+            f[++ tt] = t;
+            f[tt][k] = f[tt][k - 1];
+            f[tt][k - 1] = 'x';
+            if(!q.count(f[tt]))
+            q[f[tt]] = q[t] + 1;
+            else tt --;
+        }
+        if(k - 3 >= 0)
+        {
+            f[++ tt] = t;
+            f[tt][k] = f[tt][k - 3];
+            f[tt][k - 3] = 'x';
+            if(!q.count(f[tt]))
+            q[f[tt]] = q[t] + 1;
+            else tt --;
+        }
+    }
+    return -1;
+}
+int main()
+{
+    for(int i = 0; i < 9; i ++)
+    {
+        char a;cin>>a;
+        s += a;
+    }
+    cout << bfs();
+}
+```
+
+#### 这段代码是我自己写的,比y总的长得多,但是思路一样,y总实现得更巧妙
+
+```cpp
+//yxc代码
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+#include <queue>
+using namespace std;
+int bfs(string state)
+{
+    queue<string> q;
+    unordered_map<string, int> d;
+    q.push(state);
+    d[state] = 0;
+    int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};
+    string end = "12345678x";
+    while (q.size())
+    {
+        auto t = q.front();
+        q.pop();
+
+        if (t == end) return d[t];
+
+        int distance = d[t];
+        int k = t.find('x');
+        int x = k / 3, y = k % 3;
+        for (int i = 0; i < 4; i ++ )
+        {
+            int a = x + dx[i], b = y + dy[i];
+            if (a >= 0 && a < 3 && b >= 0 && b < 3)
+            {
+                swap(t[a * 3 + b], t[k]);
+                if (!d.count(t))
+                {
+                    d[t] = distance + 1;
+                    q.push(t);
+                }
+                swap(t[a * 3 + b], t[k]);
+            }
+        }
+    }
+    return -1;
+}
+int main()
+{
+    char s[2];
+    string state;
+    for (int i = 0; i < 9; i ++ )
+    {
+        cin >> s;
+        state += *s;
+    }
+    cout << bfs(state) << endl;
+    return 0;
+}
+```
+
+#### 没接触bfs之前确实想不到这种搜索能解决这样的问题,说很巧妙但是又是暴力,说暴力吧在这上面用又很巧妙.d来存步数,队列来存状态,还有防重机制`(!d.count)`,我第一次写这题是没有写任何防重的,结果直接爆了(当然也不知道爆在哪里,数组开了$9!$),这题里面还学到一个,string类里面的find方法远比for循环找一个字符快,我第一次写完是用for来找`x`字符的,比y总慢了1s多,但是实现来看,思路都一样,为什么会慢这么多呢?好家伙,就是因为这个for遍历找x
+
