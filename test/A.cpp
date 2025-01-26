@@ -6,31 +6,76 @@ typedef pair<int,int> PII;
 
 const int INF = 1e9;
 
-const int N = 22;
-int g[N][N];
-
-int dp[1 << 20][N];
 
 void solve()
 {
-    int n;cin>>n;
-    for(int i = 0; i < n; i ++)
-        for(int j = 0; j < n; j ++)
-            cin>>g[i][j];
-    memset(dp,0x3f,sizeof dp);
-    dp[1][0] = 0;
-
-    for(int i = 0; i < 1 << n; i ++)
+    int n,m;cin>>n>>m;
+    vector<vector<char>>q(n + 1,vector<char>(m + 1));
+    for(int i = 1; i <= n; i ++)
+        for(int j = 1; j <= m; j ++)
+            cin>>q[i][j];
+    int h = -1;
+    int mx = 0;
+    for(int i = 1; i <= n; i ++)
     {
-        for(int j = 0; j < n; j ++)
+        int t = 0;
+        int zero = 0,one = 0;
+        for(int j = 1; j <= m; j ++)
+            if(q[i][j] == '0')
+                zero ++;
+            else one ++;
+        t = max(zero,one);
+        if(t > mx)
         {
-            if(i >> j & 1)
-                for(int k = 0; k < n; k ++)
-                    if(i >> k & 1)
-                        dp[i][j] = min(dp[i][j],dp[i - (1 << j)][k] + g[j][k]);
+            h = i;
+            mx = t;
         }
     }
-    cout << dp[(1 << n) - 1][n - 1];
+    int zero = 0,one = 0;
+    for(int i = 1; i <= m; i ++)
+    {
+        if(q[h][i] == '1')
+            one ++;
+        else zero ++;
+    }
+    if(zero > one)
+        for(int i = 1; i <= m; i ++)
+            if(q[h][i] == '1')
+                q[h][i] = '0';
+            else q[h][i] = '1';
+
+    for(int i = 1; i <= n; i ++)    
+    {
+        if(i == h)
+            continue;
+        int com = 0;
+        for(int j = 1; j <= m; j ++)
+            if(q[i][j] == q[h][j]) 
+                com ++;
+        if(com < m - com)
+            for(int j = 1; j <= m; j ++)
+                if(q[i][j] == '1')
+                    q[i][j] = '0';
+                else q[i][j] = '1';
+    }
+
+    int ans = 0;
+    for(int i = 1; i <= m; i ++)
+    {
+        int flag = 0;
+        for(int j = 1; j <= n; j ++)
+            if(q[j][i] != '1')
+            {
+                flag = 1;
+                break;
+            }
+        if(!flag)
+            ans ++;
+    }
+
+    cout << ans << endl;
+    return;
+
 }
 
 

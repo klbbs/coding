@@ -1,61 +1,62 @@
 #include <bits/stdc++.h>
-using namespace std;
-typedef long long LL;
-typedef pair<int,int> PII;
+
+using i64 = long long;
+using u64 = unsigned long long;
+using u32 = unsigned;
+using u128 = unsigned __int128;
 
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vector<int>q(n + 1);  // 每只猪要求的天数
-    for(int i = 1; i <= n; i++)
-        cin >> q[i];
-    vector<int>E(n + 1), val(n + 1);  // 精力和补偿值
-    for(int i = 1; i <= n; i++)
-        cin >> E[i] >> val[i];
-        
-    // 按天分组，记录每天要求陪伴的猪
-    int max_day = *max_element(q.begin(), q.end());
-    vector<vector<pair<int,int>>> groups(max_day + 1);  // {精力,补偿}
-    for(int i = 1; i <= n; i++) {
-        groups[q[i]].push_back({E[i], val[i]});
+    int n, m, k;
+    std::cin >> n >> m >> k;
+    
+    std::vector<int> a(n), b(m);
+    for (int i = 0; i < n; i++) {
+        std::cin >> a[i];
     }
-
-    vector<LL> dp(max_day + 1, 0x3f3f3f3f3f3f3f3fLL);
-    dp[0] = 0;
-
-    // 对每一天
-    for(int i = 1; i <= max_day; i++) {
-        // 如果这天没有猪要求陪伴
-        if(groups[i].empty()) {
-            dp[i] = dp[i-1];
-            continue;
+    for (int i = 0; i < m; i++) {
+        std::cin >> b[i];
+    }
+    
+    i64 ans = std::accumulate(a.begin(), a.end(), 0LL);
+    
+    std::vector<int> f(1 << m);
+    f[0] = (1 << 30) - 1;
+    for (int s = 1; s < (1 << m); s++) {
+        int u = __builtin_ctz(s);
+        f[s] = f[s ^ (1 << u)] & b[u];
+    }
+    
+    std::vector<int> h;
+    h.reserve(n * m);
+    for (int i = 0; i < n; i++) {
+        std::vector<int> g(m + 1);
+        for (int s = 0; s < (1 << m); s++) {
+            int c = __builtin_popcount(s);
+            g[c] = std::max(g[c], a[i] - (a[i] & f[s]));
         }
-
-        // 计算这天所有猪的补偿总和
-        LL total_val = 0;
-        for(auto [e, v] : groups[i]) {
-            total_val += v;
-        }
-
-        // 不陪任何猪
-        dp[i] = dp[i-1] + total_val;
-
-        // 尝试陪其中一只猪
-        if(i >= m) {
-            for(auto [e, v] : groups[i]) {
-                // 陪这只猪：花费精力e，其他猪需要补偿(total_val - v)
-                dp[i] = min(dp[i], dp[i-m] + e + (total_val - v));
-            }
+        for (int j = 1; j <= m; j++) {
+            h.push_back(g[j] - g[j - 1]);
         }
     }
-
-    cout << dp[max_day] << '\n';
+    std::sort(h.begin(), h.end(), std::greater<int>());
+    
+    for (int i = 0; i < h.size() && i < k; i++) {
+        ans -= h[i];
+    }
+    
+    std::cout << ans << "\n";
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    solve();
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int t;
+    std::cin >> t;
+    
+    while (t--) {
+        solve();
+    }
+    
     return 0;
 }
