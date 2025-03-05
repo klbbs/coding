@@ -6,36 +6,30 @@ typedef pair<int,int> PII;
 
 const int INF = 1e9;
 
+
 void solve()
 {
-    int n,m;cin>>n>>m;
-    vector<pair<int,string>>s(n + 1);
-    for(int i = 1; i <= n; i ++)
-        cin>>s[i].second,s[i].first = 0;
-    int l,r;cin>>l>>r;
-    sort(s.begin() + 1,s.end(),[&](auto &a,auto &b){
-        int compre = 0;
-        for(int i = 0; i < min(a.second.length(),b.second.length()); i ++)
-            if(a.second[i] != b.second[i])
-                break;
-            else compre ++;
-
-        a.first = max(a.first,compre);
-        b.first = max(b.first,compre);
-        if(a.first == b.first)
-            return a.second.length() < b.second.length();
-        return a.first < b.first;
-    });
-    // for(int i = 1; i <= n; i ++)
-    //     cout << s[i].second  << endl;
-
-    LL ans = s[1].second.length();
-    for(int i = 2; i <= n; i ++)
+    string s;cin>>s;
+    // N E S W
+    char p[] = "NESW"; 
+    map<char,int>mp;
+    for(int i = 0; i < 4; i ++)
+        mp[p[i]] = i;
+    int now = mp[s[0]];
+    int l = 0,r = 0;
+    for(int i = 1; i < s.length(); i ++)
     {
-        ans += s[i].second.length() - s[i].first + s[i - 1].second.length() - s[i - 1].first;
+        if(s[i] == p[(now + 1)%4])
+            r ++;
+        else if(s[i] == p[(now - 1 + 4)%4])
+            l ++;
+        now = mp[s[i]];
     }
+    if(l > r)
+        cout << "CCW" << endl;
+    else cout << "CW" << endl;
+    
 
-    cout << ans << endl;
 }
 
 
@@ -43,7 +37,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
     int T = 1;
-    //cin>>T;
+    cin>>T;
     while(T --)
     {
         solve();

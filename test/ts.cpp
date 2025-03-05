@@ -5,20 +5,17 @@ typedef pair<int,int> PII;
 
 
 const int INF = 1e9;
-const int N = 1e5+10;
-struct
-{
-    int l,r;
-    int val;
-}tr[4*N];
+
 
 void solve()
 {
     int n;cin>>n;
-    for(int i = 1; i <= n; i ++)
+    while(n != 1)
     {
-        int x1,y1,x2,y2;cin>>x1>>y1>>x2>>y2;
-        
+        if(n%2)
+            n = 3*n + 1;
+        else n /= 2;
+        cout << n << ' ';
     }
 }
 
@@ -33,4 +30,4 @@ int main()
         solve();
     }
     return 0;
-} 
+}
