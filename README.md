@@ -1,10 +1,31 @@
 just for coding
+just to practice
 
 
+#include <bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+typedef long long LL;
+typedef pair<int,int> PII;
 
 
+const int INF = 1e9;
 
-## 多练😭
 
-### - 千万不要用cin和cout啊，血的教训呜呜呜，一定要用scanf和printf，不怕一万就怕万一，这奇奇怪怪的地方让我卡了好久，这俩是十倍的速度差距啊呜呜呜
-- 上面这个事值得单独一个commit
+void solve()
+{
+  // Do what you want...
+}
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
+    int T = 1;
+    //cin>>T;
+    while(T --)
+    {
+        solve();
+    }
+    return 0;
+}
