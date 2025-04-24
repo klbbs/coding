@@ -1,1 +1,0 @@
-{"name":"Local: B","url":"c:\\Users\\kendas\\Desktop\\for_code_skill\\test\\B.cpp","tests":[{"id":1737563509341,"input":"1\n4 5\n9 6 3 2 2\n8 5 10 2 8\n2 2 8 5 3\n9 6 10 5 2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\kendas\\Desktop\\for_code_skill\\test\\B.cpp","group":"local","local":true}
