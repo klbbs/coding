@@ -3,7 +3,7 @@
 [1073. 树的中心 - AcWing题库](https://www.acwing.com/problem/content/1075/)
 
 
-![](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\树的中心.png)
+![](../photos/树的中心.png)
 
 #### 由于不知道根,暴力O(n^2)枚举所有点作为根节点,根据题意模拟;
 

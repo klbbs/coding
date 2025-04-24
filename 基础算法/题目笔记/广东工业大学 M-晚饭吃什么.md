@@ -6,9 +6,9 @@
 
 ### 题目描述:
 
-![m1](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\M1.png)
+![m1](../photos/M1.png)
 
-![M2](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\M2.png)
+![M2](../photos/M2.png)
 
 #### 长期不会组合数学,这次借助AI工具完整的学完了这道题:
 
@@ -130,11 +130,11 @@ int main()
 
 ### 题目描述:
 
-![](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\L1.png)
+![](../photos/L1.png)
 
-![L2](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\L2.png)
+![L2](../photos/L2.png)
 
-![L3](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\L3.png)
+![L3](../photos/L3.png)
 
 #### 这题有几个很重要的点:
 
@@ -144,7 +144,7 @@ int main()
 
 #### 官方题解通过观察并证明了,如果存在一个长度大于1的T符合要求,那么长度为1的T1(表示字符串T的第一个字符)一定也满足要求,这部分我认为grok证明的很详细,当然,仔细想也可以想明白
 
-![](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\L4.png)
+![](../photos/L4.png)
 
 #### 这个结论非常符合我们简化题目的目的,我们肯定希望T越简单越好,1个字符当然是最简单的了,数组A中也不会出现大于1的字符,又由于字符串只有三种字符,枚举每个字符,如果有答案就输出,没有就真的是没有了(通过结论),这个结论非常重要,也导致了代码非常简单
 
@@ -206,9 +206,9 @@ int main()
 
 #### 题目描述
 
-![](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\广东K.png)
+![](../photos/广东K.png)
 
-![广东K2](C:\Users\kendas\Desktop\for_code_skill\基础算法\photos\广东K2.png)
+![广东K2](../photos/广东K2.png)
 
 #### 分析来源官方题解及AI,仅整理:
 
